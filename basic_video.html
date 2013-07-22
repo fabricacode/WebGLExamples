@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>basic video</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="_css/basic.css" />
+		<style>
+			#video{
+				width: 100%;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<video id="video" autoplay></video>
+		
+		<script>
+		
+			function hasGetUserMedia() {
+				return !!(navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+			}
+		
+			var onFailSoHard = function(e){
+				console.log("broken", e);
+			}
+			
+			window.URL = window.URL || window.webkitURL;
+			navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+		
+			var video = document.querySelector('video');
+		
+			if(navigator.getUserMedia){
+				navigator.getUserMedia({video: true, audio: true}, function(stream){video.src = window.URL.createObjectURL(stream);}, onFailSoHard);
+			}
+		</script>
+	</body>
+	
+</html>
